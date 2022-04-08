@@ -30,21 +30,41 @@ console.time("Filtrage des propriétaires de chien");
 console.log("Personnes qui ont un chien :", users.filter(user=>user.pet == "dog").length);
 console.timeEnd("Filtrage des propriétaires de chien");
 
-/*
-["toto","tutu"]
-{
-    0:"toto",
-    1:"tutu"
+// ["toto","tutu"]
+// {
+//     0:"toto",
+//     1:"tutu"
+// }
+
+// users=[
+//     {/* un user */},
+//     {/* un user */},
+// ]
+// {
+//     0:{/* un user */},
+//     1:{/* un user */}
+// }
+
+// on vient créer un nouvel objet - on prend donc de la place en mémoire
+// usersPetIndex = {
+//     "dog":[/* tableau des personnes ayant un chien */],
+//     "cat":[/* tableau des personnes ayant un chat */],
+//     ...
+// }
+
+// je déclare un objet qui va contenir tous mes utilisateurs classés par pet
+const usersPetIndex = {};
+for(const user of users){
+    // est ce que le pet est défini dans l'index ?
+    if(!usersPetIndex[user.pet]){
+        // je crèe la clef
+        usersPetIndex[user.pet] = [];
+    }
+
+    // j'ajoute mon utilisateur
+    usersPetIndex[user.pet].push(user);
 }
-*/
 
-user=[
-    {/* un user */},
-    {/* un user */}
-];
-
-userPetIndex = {
-    "dog":[/* tableau des personnes ayant un chien */],
-    "cat":[/* tableau des personnes ayant un chat */],
-
-}
+console.time("Comptage des propriétaires de chien");
+console.log("Personnes qui ont un chien :", usersPetIndex["dog"].length);
+console.timeEnd("Comptage des propriétaires de chien");
